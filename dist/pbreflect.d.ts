@@ -1556,6 +1556,18 @@ declare const NT: {
                 type: string;
                 id: number;
             };
+            cRoomModFlagsUpdate: {
+                type: string;
+                id: number;
+            };
+            sRoomModFlagsUpdated: {
+                type: string;
+                id: number;
+            };
+            sRoomModFlagsUpdateFailed: {
+                type: string;
+                id: number;
+            };
         };
     };
     ClientRunOver: {
@@ -1967,6 +1979,32 @@ declare const NT: {
             };
         };
     };
+    ClientModFlagsUpdate: {
+        fields: {
+            modFlags: {
+                keyType: string;
+                type: string;
+                id: number;
+            };
+        };
+    };
+    ServerModFlagsUpdated: {
+        fields: {
+            modFlags: {
+                keyType: string;
+                type: string;
+                id: number;
+            };
+        };
+    };
+    ServerModFlagsUpdateFailed: {
+        fields: {
+            reason: {
+                type: string;
+                id: number;
+            };
+        };
+    };
     ClientJoinRoom: {
         oneofs: {
             _password: {
@@ -2360,5 +2398,5 @@ type MessageIds<T extends {
 } & unknown;
 export declare const Messages: MessageIds<typeof NT>;
 export declare const gameActions: ("cPlayerMove" | "sPlayerMoves" | "cPlayerUpdate" | "sPlayerUpdate" | "cPlayerUpdateInventory" | "sPlayerUpdateInventory" | "cHostItemBank" | "sHostItemBank" | "cHostUserTake" | "sHostUserTake" | "cHostUserTakeGold" | "sHostUserTakeGold" | "cPlayerAddGold" | "sPlayerAddGold" | "cPlayerTakeGold" | "sPlayerTakeGold" | "cPlayerAddItem" | "sPlayerAddItem" | "cPlayerTakeItem" | "sPlayerTakeItem" | "cPlayerPickup" | "sPlayerPickup" | "cNemesisAbility" | "sNemesisAbility" | "cNemesisPickupItem" | "sNemesisPickupItem" | "cChat" | "sChat" | "cPlayerDeath" | "sPlayerDeath" | "cPlayerNewGamePlus" | "sPlayerNewGamePlus" | "cPlayerSecretHourglass" | "sPlayerSecretHourglass" | "cCustomModEvent" | "sCustomModEvent" | "cRespawnPenalty" | "sRespawnPenalty" | "cAngerySteve" | "sAngerySteve" | "sStatUpdate")[];
-export declare const lobbyActions: ("cRoomCreate" | "sRoomCreated" | "sRoomCreateFailed" | "cRoomUpdate" | "sRoomUpdated" | "sRoomUpdateFailed" | "cRoomFlagsUpdate" | "sRoomFlagsUpdated" | "sRoomFlagsUpdateFailed" | "cRoomDelete" | "sRoomDeleted" | "cJoinRoom" | "sJoinRoomSuccess" | "sJoinRoomFailed" | "sUserJoinedRoom" | "cLeaveRoom" | "sUserLeftRoom" | "cKickUser" | "sUserKicked" | "cBanUser" | "sUserBanned" | "cReadyState" | "sUserReadyState" | "cStartRun" | "sHostStart" | "cRequestRoomList" | "sRoomList" | "sDisconnected" | "sRoomAddToList" | "cRunOver")[];
+export declare const lobbyActions: ("cRoomCreate" | "sRoomCreated" | "sRoomCreateFailed" | "cRoomUpdate" | "sRoomUpdated" | "sRoomUpdateFailed" | "cRoomFlagsUpdate" | "sRoomFlagsUpdated" | "sRoomFlagsUpdateFailed" | "cRoomDelete" | "sRoomDeleted" | "cJoinRoom" | "sJoinRoomSuccess" | "sJoinRoomFailed" | "sUserJoinedRoom" | "cLeaveRoom" | "sUserLeftRoom" | "cKickUser" | "sUserKicked" | "cBanUser" | "sUserBanned" | "cReadyState" | "sUserReadyState" | "cStartRun" | "sHostStart" | "cRequestRoomList" | "sRoomList" | "sDisconnected" | "sRoomAddToList" | "cRunOver" | "cRoomModFlagsUpdate" | "sRoomModFlagsUpdated" | "sRoomModFlagsUpdateFailed")[];
 export {};
