@@ -10030,11 +10030,18 @@ export namespace NT {
         public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
+    /** ModFlagsListType enum. */
+    enum ModFlagsListType {
+        UNSPECIFIED = 0,
+        ALLOWED = 1,
+        DENIED = 2
+    }
+
     /** Properties of a ClientModFlagsUpdate. */
     interface IClientModFlagsUpdate {
 
         /** ClientModFlagsUpdate modFlags */
-        modFlags?: ({ [k: string]: string }|null);
+        modFlags?: ({ [k: string]: NT.ModFlagsListType }|null);
     }
 
     /** Represents a ClientModFlagsUpdate. */
@@ -10047,7 +10054,7 @@ export namespace NT {
         constructor(properties?: NT.IClientModFlagsUpdate);
 
         /** ClientModFlagsUpdate modFlags. */
-        public modFlags: { [k: string]: string };
+        public modFlags: { [k: string]: NT.ModFlagsListType };
 
         /**
          * Creates a new ClientModFlagsUpdate instance using the specified properties.
@@ -10131,7 +10138,7 @@ export namespace NT {
     interface IServerModFlagsUpdated {
 
         /** ServerModFlagsUpdated modFlags */
-        modFlags?: ({ [k: string]: string }|null);
+        modFlags?: ({ [k: string]: NT.ModFlagsListType }|null);
     }
 
     /** Represents a ServerModFlagsUpdated. */
@@ -10144,7 +10151,7 @@ export namespace NT {
         constructor(properties?: NT.IServerModFlagsUpdated);
 
         /** ServerModFlagsUpdated modFlags. */
-        public modFlags: { [k: string]: string };
+        public modFlags: { [k: string]: NT.ModFlagsListType };
 
         /**
          * Creates a new ServerModFlagsUpdated instance using the specified properties.

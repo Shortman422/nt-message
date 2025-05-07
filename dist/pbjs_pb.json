@@ -2171,11 +2171,18 @@
             }
           }
         },
+        "ModFlagsListType": {
+          "values": {
+            "UNSPECIFIED": 0,
+            "ALLOWED": 1,
+            "DENIED": 2
+          }
+        },
         "ClientModFlagsUpdate": {
           "fields": {
             "modFlags": {
               "keyType": "string",
-              "type": "string",
+              "type": "ModFlagsListType",
               "id": 1
             }
           }
@@ -2184,7 +2191,7 @@
           "fields": {
             "modFlags": {
               "keyType": "string",
-              "type": "string",
+              "type": "ModFlagsListType",
               "id": 1
             }
           }

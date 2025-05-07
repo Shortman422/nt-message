@@ -25661,13 +25661,29 @@ $root.NT = (function() {
         return ServerRoomFlagsUpdateFailed;
     })();
 
+    /**
+     * ModFlagsListType enum.
+     * @name NT.ModFlagsListType
+     * @enum {number}
+     * @property {number} UNSPECIFIED=0 UNSPECIFIED value
+     * @property {number} ALLOWED=1 ALLOWED value
+     * @property {number} DENIED=2 DENIED value
+     */
+    NT.ModFlagsListType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "UNSPECIFIED"] = 0;
+        values[valuesById[1] = "ALLOWED"] = 1;
+        values[valuesById[2] = "DENIED"] = 2;
+        return values;
+    })();
+
     NT.ClientModFlagsUpdate = (function() {
 
         /**
          * Properties of a ClientModFlagsUpdate.
          * @memberof NT
          * @interface IClientModFlagsUpdate
-         * @property {Object.<string,string>|null} [modFlags] ClientModFlagsUpdate modFlags
+         * @property {Object.<string,NT.ModFlagsListType>|null} [modFlags] ClientModFlagsUpdate modFlags
          */
 
         /**
@@ -25688,7 +25704,7 @@ $root.NT = (function() {
 
         /**
          * ClientModFlagsUpdate modFlags.
-         * @member {Object.<string,string>} modFlags
+         * @member {Object.<string,NT.ModFlagsListType>} modFlags
          * @memberof NT.ClientModFlagsUpdate
          * @instance
          */
@@ -25720,7 +25736,7 @@ $root.NT = (function() {
                 writer = $Writer.create();
             if (message.modFlags != null && Object.hasOwnProperty.call(message, "modFlags"))
                 for (var keys = Object.keys(message.modFlags), i = 0; i < keys.length; ++i)
-                    writer.uint32(/* id 1, wireType 2 =*/10).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 2 =*/18).string(message.modFlags[keys[i]]).ldelim();
+                    writer.uint32(/* id 1, wireType 2 =*/10).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 0 =*/16).int32(message.modFlags[keys[i]]).ldelim();
             return writer;
         };
 
@@ -25760,7 +25776,7 @@ $root.NT = (function() {
                             message.modFlags = {};
                         var end2 = reader.uint32() + reader.pos;
                         key = "";
-                        value = "";
+                        value = 0;
                         while (reader.pos < end2) {
                             var tag2 = reader.uint32();
                             switch (tag2 >>> 3) {
@@ -25768,7 +25784,7 @@ $root.NT = (function() {
                                 key = reader.string();
                                 break;
                             case 2:
-                                value = reader.string();
+                                value = reader.int32();
                                 break;
                             default:
                                 reader.skipType(tag2 & 7);
@@ -25818,8 +25834,14 @@ $root.NT = (function() {
                     return "modFlags: object expected";
                 var key = Object.keys(message.modFlags);
                 for (var i = 0; i < key.length; ++i)
-                    if (!$util.isString(message.modFlags[key[i]]))
-                        return "modFlags: string{k:string} expected";
+                    switch (message.modFlags[key[i]]) {
+                    default:
+                        return "modFlags: enum value{k:string} expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                        break;
+                    }
             }
             return null;
         };
@@ -25841,7 +25863,26 @@ $root.NT = (function() {
                     throw TypeError(".NT.ClientModFlagsUpdate.modFlags: object expected");
                 message.modFlags = {};
                 for (var keys = Object.keys(object.modFlags), i = 0; i < keys.length; ++i)
-                    message.modFlags[keys[i]] = String(object.modFlags[keys[i]]);
+                    switch (object.modFlags[keys[i]]) {
+                    default:
+                        if (typeof object.modFlags[keys[i]] === "number") {
+                            message.modFlags[keys[i]] = object.modFlags[keys[i]];
+                            break;
+                        }
+                        break;
+                    case "UNSPECIFIED":
+                    case 0:
+                        message.modFlags[keys[i]] = 0;
+                        break;
+                    case "ALLOWED":
+                    case 1:
+                        message.modFlags[keys[i]] = 1;
+                        break;
+                    case "DENIED":
+                    case 2:
+                        message.modFlags[keys[i]] = 2;
+                        break;
+                    }
             }
             return message;
         };
@@ -25865,7 +25906,7 @@ $root.NT = (function() {
             if (message.modFlags && (keys2 = Object.keys(message.modFlags)).length) {
                 object.modFlags = {};
                 for (var j = 0; j < keys2.length; ++j)
-                    object.modFlags[keys2[j]] = message.modFlags[keys2[j]];
+                    object.modFlags[keys2[j]] = options.enums === String ? $root.NT.ModFlagsListType[message.modFlags[keys2[j]]] === undefined ? message.modFlags[keys2[j]] : $root.NT.ModFlagsListType[message.modFlags[keys2[j]]] : message.modFlags[keys2[j]];
             }
             return object;
         };
@@ -25905,7 +25946,7 @@ $root.NT = (function() {
          * Properties of a ServerModFlagsUpdated.
          * @memberof NT
          * @interface IServerModFlagsUpdated
-         * @property {Object.<string,string>|null} [modFlags] ServerModFlagsUpdated modFlags
+         * @property {Object.<string,NT.ModFlagsListType>|null} [modFlags] ServerModFlagsUpdated modFlags
          */
 
         /**
@@ -25926,7 +25967,7 @@ $root.NT = (function() {
 
         /**
          * ServerModFlagsUpdated modFlags.
-         * @member {Object.<string,string>} modFlags
+         * @member {Object.<string,NT.ModFlagsListType>} modFlags
          * @memberof NT.ServerModFlagsUpdated
          * @instance
          */
@@ -25958,7 +25999,7 @@ $root.NT = (function() {
                 writer = $Writer.create();
             if (message.modFlags != null && Object.hasOwnProperty.call(message, "modFlags"))
                 for (var keys = Object.keys(message.modFlags), i = 0; i < keys.length; ++i)
-                    writer.uint32(/* id 1, wireType 2 =*/10).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 2 =*/18).string(message.modFlags[keys[i]]).ldelim();
+                    writer.uint32(/* id 1, wireType 2 =*/10).fork().uint32(/* id 1, wireType 2 =*/10).string(keys[i]).uint32(/* id 2, wireType 0 =*/16).int32(message.modFlags[keys[i]]).ldelim();
             return writer;
         };
 
@@ -25998,7 +26039,7 @@ $root.NT = (function() {
                             message.modFlags = {};
                         var end2 = reader.uint32() + reader.pos;
                         key = "";
-                        value = "";
+                        value = 0;
                         while (reader.pos < end2) {
                             var tag2 = reader.uint32();
                             switch (tag2 >>> 3) {
@@ -26006,7 +26047,7 @@ $root.NT = (function() {
                                 key = reader.string();
                                 break;
                             case 2:
-                                value = reader.string();
+                                value = reader.int32();
                                 break;
                             default:
                                 reader.skipType(tag2 & 7);
@@ -26056,8 +26097,14 @@ $root.NT = (function() {
                     return "modFlags: object expected";
                 var key = Object.keys(message.modFlags);
                 for (var i = 0; i < key.length; ++i)
-                    if (!$util.isString(message.modFlags[key[i]]))
-                        return "modFlags: string{k:string} expected";
+                    switch (message.modFlags[key[i]]) {
+                    default:
+                        return "modFlags: enum value{k:string} expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                        break;
+                    }
             }
             return null;
         };
@@ -26079,7 +26126,26 @@ $root.NT = (function() {
                     throw TypeError(".NT.ServerModFlagsUpdated.modFlags: object expected");
                 message.modFlags = {};
                 for (var keys = Object.keys(object.modFlags), i = 0; i < keys.length; ++i)
-                    message.modFlags[keys[i]] = String(object.modFlags[keys[i]]);
+                    switch (object.modFlags[keys[i]]) {
+                    default:
+                        if (typeof object.modFlags[keys[i]] === "number") {
+                            message.modFlags[keys[i]] = object.modFlags[keys[i]];
+                            break;
+                        }
+                        break;
+                    case "UNSPECIFIED":
+                    case 0:
+                        message.modFlags[keys[i]] = 0;
+                        break;
+                    case "ALLOWED":
+                    case 1:
+                        message.modFlags[keys[i]] = 1;
+                        break;
+                    case "DENIED":
+                    case 2:
+                        message.modFlags[keys[i]] = 2;
+                        break;
+                    }
             }
             return message;
         };
@@ -26103,7 +26169,7 @@ $root.NT = (function() {
             if (message.modFlags && (keys2 = Object.keys(message.modFlags)).length) {
                 object.modFlags = {};
                 for (var j = 0; j < keys2.length; ++j)
-                    object.modFlags[keys2[j]] = message.modFlags[keys2[j]];
+                    object.modFlags[keys2[j]] = options.enums === String ? $root.NT.ModFlagsListType[message.modFlags[keys2[j]]] === undefined ? message.modFlags[keys2[j]] : $root.NT.ModFlagsListType[message.modFlags[keys2[j]]] : message.modFlags[keys2[j]];
             }
             return object;
         };

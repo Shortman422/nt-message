@@ -611,12 +611,18 @@ message ServerRoomFlagsUpdateFailed {
     string reason = 1;
 }
 
+enum ModFlagsListType {
+    UNSPECIFIED = 0;
+    ALLOWED = 1;
+    DENIED = 2;
+}
+
 message ClientModFlagsUpdate {
-    map<string, string> modFlags = 1;
+    map<string, ModFlagsListType> modFlags = 1;
 }
 
 message ServerModFlagsUpdated {
-    map<string, string> modFlags = 1;
+    map<string, ModFlagsListType> modFlags = 1;
 }
 
 message ServerModFlagsUpdateFailed {
